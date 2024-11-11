@@ -1,6 +1,6 @@
 {
     "@@locale": "en",
-    "enter": "enter",
+    "enter": "Enter",
     "@enter": {
         "description": "Botão 'Entrar' da tela de dashboard"
     }

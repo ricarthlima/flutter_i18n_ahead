@@ -1,7 +1,19 @@
 {
     "@@locale": "en",
-    "enter": "Enter",
-    "@enter": {
+    "dashboardEnter": "Enter",
+    "@dashboardEnter": {
         "description": "Botão 'Entrar' da tela de dashboard"
+    },
+    "dashboardTipRegister": "Register your books",
+    "@dashboardTipRegister": {
+        "description": "Dica de carrossel"
+    },
+    "dashboardTipTakeNotes": "Take notes",
+    "@dashboardTipTakeNotes": {
+        "description": "Dica de carrossel"
+    },
+    "dashboardTipVisualize": "Visualize your progress",
+    "@dashboardTipVisualize": {
+        "description": "Dica de carrossel"
     }
 }

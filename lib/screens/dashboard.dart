@@ -60,7 +60,7 @@ class Dashboard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 16.0),
                     child: PrimaryButton(
-                      text: AppLocalizations.of(context)!.enter,
+                      text: AppLocalizations.of(context)!.dashboardEnter,
                       onTap: () {
                         Navigator.push(
                           context,

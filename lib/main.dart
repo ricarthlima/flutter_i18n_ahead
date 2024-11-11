@@ -25,8 +25,8 @@ class Grimorio extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('pt', "BR"), // Brazilian Portuguese
         Locale('en'), // English
+        Locale('pt', "BR"), // Brazilian Portuguese
         Locale('es'), // Spanish
       ],
       home: const SplashScreen(),

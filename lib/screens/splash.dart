@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: Image.asset(
-                  'assets/images/grimorio_titulo_1152.png',
+                  getImagePathByLocalization(),
                   width: 300,
                 ),
               ),
@@ -49,6 +49,22 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+
+  String getImagePathByLocalization() {
+    String code = Localizations.localeOf(context).languageCode;
+    print(code);
+
+    switch (code) {
+      case "pt":
+        return "assets/images/grimorio_titulo_1152.png";
+      case "en":
+        return "assets/images/grimorio_titulo_1152-en.png";
+      case "es":
+        return "assets/images/grimorio_titulo_1152-es.png";
+    }
+
+    return "pt";
   }
 
   waitAndShow() {

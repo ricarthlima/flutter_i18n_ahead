@@ -1,4 +1,7 @@
 {
     "@@locale": "es",
-    "enter": "Empezar"
+    "dashboardEnter": "Entrar",
+    "dashboardTipRegister": "Registra tus libros",
+    "dashboardTipTakeNotes": "Toma notas",
+    "dashboardTipVisualize": "Visualiza tu progreso"
 }

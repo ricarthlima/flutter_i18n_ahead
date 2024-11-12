@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_i18n_ahead/controller/localization_manager.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
 import 'screens/splash.dart';
 
 void main() {
   // Rodar aplicativo
-  runApp(const Grimorio());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => LocalizationManager("en"),
+      child: const Grimorio(),
+    ),
+  );
 }
 
 class Grimorio extends StatelessWidget {

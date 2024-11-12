@@ -26,7 +26,7 @@ class _SettingsDialog extends StatefulWidget {
 }
 
 class _SettingsDialogState extends State<_SettingsDialog> {
-  final DisplayedLanguages _language = DisplayedLanguages.device;
+  DisplayedLanguages _language = DisplayedLanguages.device;
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +98,9 @@ class _SettingsDialogState extends State<_SettingsDialog> {
             ],
             onChanged: (DisplayedLanguages? newLanguage) {
               if (newLanguage != null) {
+                setState(() {
+                  _language = newLanguage;
+                });
                 onChangedLanguage(newLanguage);
               }
             },
@@ -127,10 +130,10 @@ class _SettingsDialogState extends State<_SettingsDialog> {
   void closeDialog() {
     Navigator.pop(context);
   }
-}
 
-void onChangedLanguage(DisplayedLanguages language) {
-  //TODO: Comportamento de troca de linguagem
+  void onChangedLanguage(DisplayedLanguages language) {
+    //TODO: Comportamento de troca de linguagem
+  }
 }
 
 enum DisplayedLanguages { device, portuguese, english, spanish }

@@ -15,12 +15,18 @@ class LocalizationManager with ChangeNotifier {
   final Map<String, Map<String, String>> _mapLanguages = {
     "pt": {
       "clearBooks": "Limpar todos os livros",
+      "language": "Idioma",
+      "clear": "Limpar",
     },
     "es": {
       "clearBooks": "Eliminar todos los libros",
+      "language": "Idioma",
+      "clear": "Limpiar",
     },
     "en": {
       "clearBooks": "Clear all books",
+      "language": "Language",
+      "clear": "Clear",
     },
   };
 
@@ -33,4 +39,6 @@ class LocalizationManager with ChangeNotifier {
   }
 
   String get clearBooks => _getSentence("clearBooks");
+  String get language => _getSentence("language");
+  String get clear => _getSentence("clear");
 }

@@ -44,7 +44,10 @@ class _SettingsDialogState extends State<_SettingsDialog> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text("Idioma", style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            context.read<LocalizationManager>().language,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
           DropdownButtonFormField<DisplayedLanguages>(
             value: _language,
             items: [
@@ -107,14 +110,14 @@ class _SettingsDialogState extends State<_SettingsDialog> {
               }
             },
           ),
-          const Text(
-            "Limpar todos os livros",
-            style: TextStyle(
+          Text(
+            context.read<LocalizationManager>().clearBooks,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
           PrimaryButton(
-            text: "Limpar",
+            text: context.read<LocalizationManager>().clear,
             onTap: () {
               wipeBooks();
             },

@@ -26,7 +26,7 @@ class _SettingsDialog extends StatefulWidget {
 }
 
 class _SettingsDialogState extends State<_SettingsDialog> {
-  final DisplayedLanguages _language = DisplayedLanguages.portuguese;
+  final DisplayedLanguages _language = DisplayedLanguages.device;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +46,16 @@ class _SettingsDialogState extends State<_SettingsDialog> {
           DropdownButtonFormField<DisplayedLanguages>(
             value: _language,
             items: [
+              const DropdownMenuItem(
+                value: DisplayedLanguages.device,
+                child: Row(
+                  children: [
+                    Icon(Icons.devices, size: 24),
+                    SizedBox(width: 8),
+                    Text("Padrão do Dispositivo"),
+                  ],
+                ),
+              ),
               DropdownMenuItem(
                 value: DisplayedLanguages.portuguese,
                 child: Row(
@@ -123,4 +133,4 @@ void onChangedLanguage(DisplayedLanguages language) {
   //TODO: Comportamento de troca de linguagem
 }
 
-enum DisplayedLanguages { portuguese, english, spanish }
+enum DisplayedLanguages { device, portuguese, english, spanish }

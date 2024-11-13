@@ -10,29 +10,13 @@ class LocalizationManager with ChangeNotifier {
   static const String defaultLanguageCode = "en";
 
   Future<void> setLanguageCode(String newCode) async {
+    await _getLanguageFromServer(newCode);
     languageCode = newCode;
-    await _getLanguageFromServer(languageCode);
     notifyListeners();
   }
 
   // No futuro esse map tem que se preencher automagicamente
-  final Map<String, Map<String, String>> _mapLanguages = {
-    "pt": {
-      "clearBooks": "Limpar todos os livros",
-      "language": "Idioma",
-      "clear": "Limpar",
-    },
-    "es": {
-      "clearBooks": "Eliminar todos los libros",
-      "language": "Idioma",
-      "clear": "Limpiar",
-    },
-    "en": {
-      "clearBooks": "Clear all books",
-      "language": "Language",
-      "clear": "Clear",
-    },
-  };
+  final Map<String, Map<String, String>> _mapLanguages = {};
 
   String _getSentence(String keySentence) {
     String? sentence = _mapLanguages[languageCode]![keySentence];

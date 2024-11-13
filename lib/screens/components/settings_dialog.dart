@@ -45,7 +45,7 @@ class _SettingsDialogState extends State<_SettingsDialog> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            context.read<LocalizationManager>().language,
+            context.watch<LocalizationManager>().language,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           DropdownButtonFormField<DisplayedLanguages>(
@@ -111,13 +111,13 @@ class _SettingsDialogState extends State<_SettingsDialog> {
             },
           ),
           Text(
-            context.read<LocalizationManager>().clearBooks,
+            context.watch<LocalizationManager>().clearBooks,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
           PrimaryButton(
-            text: context.read<LocalizationManager>().clear,
+            text: context.watch<LocalizationManager>().clear,
             onTap: () {
               wipeBooks();
             },

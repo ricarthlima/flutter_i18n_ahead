@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n_ahead/screens/components/show_loading_dialog.dart';
 import 'package:provider/provider.dart';
 
 import '../../controller/localization_manager.dart';
@@ -154,7 +155,10 @@ class _SettingsDialogState extends State<_SettingsDialog> {
         break;
     }
 
-    context.read<LocalizationManager>().setLanguageCode(newCode);
+    showLoadingDialog(
+      context,
+      context.read<LocalizationManager>().setLanguageCode(newCode),
+    );
   }
 }
 

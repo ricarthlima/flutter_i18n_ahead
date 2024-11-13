@@ -119,8 +119,11 @@ abstract class EntryDecorationProperties {
 abstract class InputDecorationProperties {
   static TextStyle textDecoration = TextStyle(color: AppColors.mediumPink);
 
-  static InputDecoration newInputDecoration(String hintText, String labelText,
-      [Icon? icon]) {
+  static InputDecoration newInputDecoration(
+    String hintText,
+    String labelText, [
+    Icon? icon,
+  ]) {
     return InputDecoration(
       prefixIcon: icon,
       prefixIconColor: AppColors.mediumPink,

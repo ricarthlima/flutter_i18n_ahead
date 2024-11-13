@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import '../models/google_book.dart';
 import '../screens/components/display_text.dart';
@@ -45,16 +47,17 @@ class _SearchBooksState extends State<SearchBooks> {
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 32.0),
                   child: TextFormField(
-                    onChanged: (value) {
+                    onFieldSubmitted: (value) {
                       // Populate list of books from API
                       setState(() {
                         booksList = googleBooksService.searchBooks(value);
                       });
                     },
                     decoration: InputDecorationProperties.newInputDecoration(
-                        "Procure por título/autor(a)",
-                        "Busca",
-                        const Icon(Icons.search)),
+                      "Procure por título/autor(a)",
+                      "Busca",
+                      const Icon(Icons.search),
+                    ),
                   ),
                 ),
               ),
@@ -93,8 +96,18 @@ class _BooksList extends StatelessWidget {
             break;
 
           case ConnectionState.done:
-            if (snapshot.hasData || snapshot.data != []) {
+            if (snapshot.hasError) {
+              String error = ((snapshot.error) as HttpException).message;
+              return SliverFillRemaining(
+                child: Center(
+                  child: Text(error),
+                ),
+              );
+            }
+            if (snapshot.data != null && snapshot.hasData ||
+                snapshot.data != []) {
               return SliverList.builder(
+                itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) => InkWell(
                   onTap: () {
                     showDialog(
@@ -184,10 +197,12 @@ class _BooksList extends StatelessWidget {
                   },
                   child: Entry(googleBook: snapshot.data![index]),
                 ),
-                itemCount: snapshot.data!.length,
+              );
+            } else {
+              return const Center(
+                child: Text("Nenhum livro encontrado."),
               );
             }
-            break;
         }
         return const SliverToBoxAdapter();
       },

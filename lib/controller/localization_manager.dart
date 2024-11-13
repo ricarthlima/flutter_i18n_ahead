@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class LocalizationManager with ChangeNotifier {
   String languageCode;
@@ -6,8 +9,9 @@ class LocalizationManager with ChangeNotifier {
 
   static const String defaultLanguageCode = "en";
 
-  setLanguageCode(String newCode) {
+  Future<void> setLanguageCode(String newCode) async {
     languageCode = newCode;
+    await _getLanguageFromServer(languageCode);
     notifyListeners();
   }
 
@@ -36,6 +40,18 @@ class LocalizationManager with ChangeNotifier {
     sentence ??= _mapLanguages[defaultLanguageCode]![keySentence]!;
 
     return sentence;
+  }
+
+  Future<void> _getLanguageFromServer(String languageCode) async {
+    String url =
+        "https://gist.githubusercontent.com/ricarthlima/5f116fa4de01aa6cecc447986a1d3698/raw/c29ebe6768dadebede25751edcb3bdbbf439741d/app_$languageCode.json";
+
+    http.Response httpResponse = await http.get(Uri.parse(url));
+    Map<String, dynamic> response = json.decode(httpResponse.body);
+
+    _mapLanguages[languageCode] = response.map(
+      (key, value) => MapEntry(key, value.toString()),
+    );
   }
 
   String get clearBooks => _getSentence("clearBooks");

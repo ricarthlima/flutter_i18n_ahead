@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n_ahead/utils/prefs_keys.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalizationManager with ChangeNotifier {
   String languageCode;
@@ -9,14 +11,20 @@ class LocalizationManager with ChangeNotifier {
 
   static const String defaultLanguageCode = "en";
 
+  // No futuro esse map tem que se preencher automagicamente
+  final Map<String, Map<String, String>> _mapLanguages = {};
+
   Future<void> setLanguageCode(String newCode) async {
     await _getLanguageFromServer(newCode);
     languageCode = newCode;
+    _saveLanguageCode(languageCode);
     notifyListeners();
   }
 
-  // No futuro esse map tem que se preencher automagicamente
-  final Map<String, Map<String, String>> _mapLanguages = {};
+  Future<void> _saveLanguageCode(String newCode) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(PrefsKeys.language, newCode);
+  }
 
   String _getSentence(String keySentence) {
     String? sentence = _mapLanguages[languageCode]![keySentence];

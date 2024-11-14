@@ -9,8 +9,8 @@ import 'screens/splash.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  LocalizationManager localizationManager = LocalizationManager("en");
-  await localizationManager.setLanguageCode("en");
+  LocalizationManager localizationManager = LocalizationManager();
+  await localizationManager.loadLanguageCode();
 
   // Rodar aplicativo
   runApp(

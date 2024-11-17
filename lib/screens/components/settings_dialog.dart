@@ -32,6 +32,13 @@ class _SettingsDialogState extends State<_SettingsDialog> {
   DisplayedLanguages _language = DisplayedLanguages.device;
 
   @override
+  void initState() {
+    String languageCode = context.read<LocalizationManager>().languageCode;
+    _language = getDisplayedLanguagesByCode(languageCode);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 300,
@@ -163,3 +170,16 @@ class _SettingsDialogState extends State<_SettingsDialog> {
 }
 
 enum DisplayedLanguages { device, portuguese, english, spanish }
+
+DisplayedLanguages getDisplayedLanguagesByCode(String languageCode) {
+  switch (languageCode) {
+    case "pt":
+      return DisplayedLanguages.portuguese;
+    case "en":
+      return DisplayedLanguages.english;
+    case "es":
+      return DisplayedLanguages.spanish;
+    default:
+      return DisplayedLanguages.device;
+  }
+}

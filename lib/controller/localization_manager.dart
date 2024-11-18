@@ -13,7 +13,7 @@ class LocalizationManager with ChangeNotifier {
   final Map<String, Map<String, String>> _mapLanguages = {};
 
   Future<void> setLanguageCode(String newCode) async {
-    await _getLanguageFromServer(newCode);
+    await loadLanguageFile(newCode);
     languageCode = newCode;
     _saveLanguageCode(languageCode);
     notifyListeners();
@@ -35,12 +35,11 @@ class LocalizationManager with ChangeNotifier {
       _saveLanguageCode(languageCode);
     }
 
-    await _getLanguageFromServer(languageCode);
-
     notifyListeners();
   }
 
   Future<void> _getLanguageFromServer(String languageCode) async {
+    print("${DateTime.now()} - Consultou o servidor");
     String url =
         "https://gist.githubusercontent.com/ricarthlima/5f116fa4de01aa6cecc447986a1d3698/raw/c29ebe6768dadebede25751edcb3bdbbf439741d/app_$languageCode.json";
 
@@ -60,6 +59,24 @@ class LocalizationManager with ChangeNotifier {
       PrefsKeys().languageFile(code),
       json.encode(_mapLanguages[code]),
     );
+  }
+
+  Future<void> loadLanguageFile(String code) async {
+    // Verifica se há a linguagem em instância
+    if (_mapLanguages[code] == null) {
+      // Se não houver tenta buscar em memória
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? result = prefs.getString(PrefsKeys().languageFile(code));
+      if (result != null) {
+        Map<String, dynamic> resultMap = json.decode(result);
+        _mapLanguages[code] = resultMap.map(
+          (key, value) => MapEntry(key, value.toString()),
+        );
+      } else {
+        // Se não houver, busca em servidor
+        await _getLanguageFromServer(code);
+      }
+    }
   }
 
   // Lógica relacionada a sentença

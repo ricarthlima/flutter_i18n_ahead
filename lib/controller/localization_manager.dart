@@ -40,14 +40,6 @@ class LocalizationManager with ChangeNotifier {
     notifyListeners();
   }
 
-  String _getSentence(String keySentence) {
-    String? sentence = _mapLanguages[languageCode]![keySentence];
-
-    sentence ??= _mapLanguages[defaultLanguageCode]![keySentence]!;
-
-    return sentence;
-  }
-
   Future<void> _getLanguageFromServer(String languageCode) async {
     String url =
         "https://gist.githubusercontent.com/ricarthlima/5f116fa4de01aa6cecc447986a1d3698/raw/c29ebe6768dadebede25751edcb3bdbbf439741d/app_$languageCode.json";
@@ -58,6 +50,15 @@ class LocalizationManager with ChangeNotifier {
     _mapLanguages[languageCode] = response.map(
       (key, value) => MapEntry(key, value.toString()),
     );
+  }
+
+  // Lógica relacionada a sentença
+  String _getSentence(String keySentence) {
+    String? sentence = _mapLanguages[languageCode]![keySentence];
+
+    sentence ??= _mapLanguages[defaultLanguageCode]![keySentence]!;
+
+    return sentence;
   }
 
   String get clearBooks => _getSentence("clearBooks");
